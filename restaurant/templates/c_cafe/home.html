@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Restaurant</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; scroll-behavior: smooth; }
+    nav {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      background: #333;
+      padding: 10px;
+      z-index: 1000;
+    }
+    nav a {
+      color: white;
+      margin: 0 15px;
+      text-decoration: none;
+    }
+    section {
+      padding: 100px 20px;
+      margin-top: 60px;
+      border-bottom: 1px solid #eee;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav>
+  <a href="#home">Home</a>
+  <a href="#about">About</a>
+  <a href="#menu">Menu</a>
+  <a href="#events">Events</a>
+  <a href="#gallery">Gallery</a>
+  <a href="#chefs">Chefs</a>
+  <a href="#contact">Contact</a>
+  <a href="#reviews">Reviews</a>
+</nav>
+
+<!-- Sections -->
+
+<!-- home section  -->
+<section id="home">
+  <h1>Welcome to Our Restaurant</h1>
+  <p>Enjoy exquisite meals crafted by top chefs in a warm atmosphere.</p>
+</section>
+
+<!-- about section -->
+<section id="about">
+  <h2>About Us</h2>
+  <p>We are dedicated to serving fresh, local ingredients with a twist of creativity and a touch of love.</p>
+</section>
+
+
+<section id="menu">
+  <h2>Our Menu</h2>
+  {% for item in items %}
+    <div>
+      <h3>{{ item.name }} - ${{ item.price }}</h3>
+      <p>{{ item.description }}</p>
+      {% if item.image %}
+        <img src="{{ item.image.url }}" alt="{{ item.name }}" width="200">
+      {% endif %}
+    </div>
+  {% empty %}
+    <p>No menu items available.</p>
+  {% endfor %}
+</section>
+
+<section id="events">
+  <h2>Upcoming Events</h2>
+  {% for event in events %}
+    <div>
+      <h3>{{ event.title }} ({{ event.date }} at {{ event.time }})</h3>
+      <p>{{ event.description }}</p>
+      {% if event.image %}
+        <img src="{{ event.image.url }}" alt="{{ event.title }}" width="300">
+      {% endif %}
+    </div>
+  {% empty %}
+    <p>No events at the moment.</p>
+  {% endfor %}
+</section>
+
+<section id="gallery">
+  <h2>Gallery</h2>
+  {% for image in gallery %}
+    <div style="display: inline-block; margin: 10px;">
+      <img src="{{ image.image.url }}" alt="{{ image.title }}" width="200">
+    </div>
+  {% empty %}
+    <p>No images in the gallery.</p>
+  {% endfor %}
+</section>
+
+<section id="chefs">
+  <h2>Meet Our Chefs</h2>
+  {% for chef in chefs %}
+    <div>
+      <h3>{{ chef.name }} - {{ chef.role }}</h3>
+      <p>{{ chef.bio }}</p>
+      {% if chef.photo %}
+        <img src="{{ chef.photo.url }}" alt="{{ chef.name }}" width="200">
+      {% endif %}
+    </div>
+  {% empty %}
+    <p>No chef profiles available.</p>
+  {% endfor %}
+</section>
+
+<section id="contact">
+  <h2>Contact Us</h2>
+  <p>Email: contact@restaurant.com</p>
+  <p>Phone: +123-456-7890</p>
+  <p>Address: 123 Flavor Street, Foodville</p>
+</section>
+
+<section id="reviews">
+  <h2>Customer Reviews</h2>
+  {% for review in reviews %}
+    <div>
+      <strong>{{ review.customer_name }}</strong>:
+      <em>"{{ review.comment }}"</em> ({{ review.rating }}/5)
+    </div>
+  {% empty %}
+    <p>No reviews yet.</p>
+  {% endfor %}
+</section>
+
+</body>
+</html>

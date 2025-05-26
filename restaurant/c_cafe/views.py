@@ -1,46 +1,29 @@
 from django.shortcuts import render,redirect
+from django.views import View
+from .models import MenuItem,Review, Event, GalleryImage, Chef
 
 # Create your views here.
 
-from django.views import View
 
 class HomeView(View):
     
     def get(self, request,*args,**kwargs):
 
-        data = {'page':'home-page'}
+        items = MenuItem.objects.filter(is_available=True)
 
-        return render(request, 'c_cafe/base.html', context=data)
-    
-class AboutView(View):
-    
-    def get(self, request,*args,**kwargs):
+        events = Event.objects.all()
 
-        data = {'page':'about-page'}
+        gallery = GalleryImage.objects.all()
 
-        return render(request, 'c_cafe/about.html', context=data)
-    
-class MenuView(View):
-    
-    def get(self, request,*args,**kwargs):
+        chefs = Chef.objects.all()
 
-        data = {'page':'menu-page'}
+        reviews = Review.objects.all()
 
-        return render(request, 'c_cafe/menu.html', context=data)
-    
-class EvenView(View):
-    
-    def get(self, request,*args,**kwargs):
+        return render(request, 'c_cafe/home.html', 
+                      {'items': items,
+                       'events': events,
+                       'gallery': gallery,
+                       'chefs': chefs,
+                       'reviews': reviews})
 
-        data = {'page':'event-page'}
-
-        return render(request, 'c_cafe/event.html', context=data)
-    
-class ChefView(View):
-    
-    def get(self, request,*args,**kwargs):
-
-        data = {'page':'chef-page'}
-
-        return render(request, 'c_cafe/chef.html', context=data)
     
