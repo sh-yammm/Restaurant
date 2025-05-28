@@ -19,11 +19,12 @@ class HomeView(View):
 
         reviews = Review.objects.all()
 
-        return render(request, 'c_cafe/home.html', 
-                      {'items': items,
-                       'events': events,
-                       'gallery': gallery,
-                       'chefs': chefs,
-                       'reviews': reviews})
+        data =   {'items': items,
+                    'events': events,
+                    'gallery': gallery,
+                    'chefs': chefs,
+                    'reviews': reviews}
+
+        return render(request, 'c_cafe/home.html',context=data)
 
     
